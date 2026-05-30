@@ -1,0 +1,715 @@
+/* ══════════════════════════════════════════════
+   FieldMind – style.css
+   Simple, large-text, farmer-friendly UI
+   English + Tamil bilingual
+   ══════════════════════════════════════════════ */
+
+/* ── VARIABLES ── */
+:root {
+  --green:   #2D6A4F;
+  --green2:  #40916C;
+  --green3:  #74C69D;
+  --green4:  #D8F3DC;
+  --amber:   #E9C46A;
+  --red:     #C1382A;
+  --bg:      #F7FAF7;
+  --white:   #FFFFFF;
+  --border:  #C8E6C9;
+  --text:    #1B2A22;
+  --muted:   #5A7263;
+  --radius:  10px;
+  --shadow:  0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ── RESET ── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Public Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════════════════════
+   TOP BAR
+   ══════════════════════════════════════════════ */
+.topbar {
+  background: var(--green);
+  color: white;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: var(--amber);
+}
+
+.tagline {
+  font-size: 12px;
+  opacity: 0.85;
+  font-family: 'Noto Sans Tamil', sans-serif;
+  margin-top: 2px;
+}
+
+.lang-toggle {
+  display: flex;
+  gap: 6px;
+}
+
+.lang-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+.lang-btn.active {
+  background: var(--amber);
+  color: var(--green);
+  font-weight: 700;
+  border-color: var(--amber);
+}
+
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ══════════════════════════════════════════════
+   NAV TABS
+   ══════════════════════════════════════════════ */
+.nav {
+  background: white;
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 14px 10px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: 'Public Sans', sans-serif;
+}
+
+.nav-btn .icon {
+  font-size: 22px;
+}
+
+.nav-btn.active {
+  color: var(--green);
+  border-bottom-color: var(--green);
+  background: var(--green4);
+}
+
+.nav-btn:hover {
+  background: var(--green4);
+}
+
+/* ══════════════════════════════════════════════
+   PAGES
+   ══════════════════════════════════════════════ */
+.page {
+  display: none;
+  padding: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.page.active {
+  display: block;
+}
+
+/* ══════════════════════════════════════════════
+   CARDS
+   ══════════════════════════════════════════════ */
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 6px;
+}
+
+.card-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════════
+   FORM ELEMENTS
+   ══════════════════════════════════════════════ */
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 5px;
+  margin-top: 14px;
+}
+
+label .tamil {
+  font-family: 'Noto Sans Tamil', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  font-weight: 400;
+}
+
+input[type=text],
+input[type=number],
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-family: 'Public Sans', sans-serif;
+  background: white;
+  color: var(--text);
+  transition: border 0.2s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--green2);
+}
+
+/* 2-column grid for soil inputs */
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+
+@media (max-width: 480px) {
+  .input-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════ */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background 0.2s;
+  font-family: 'Public Sans', sans-serif;
+}
+
+.btn:hover {
+  background: var(--green2);
+}
+
+.btn:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--green);
+  border: 2px solid var(--green);
+}
+
+.btn-secondary:hover {
+  background: var(--green4);
+}
+
+.btn-small {
+  width: auto;
+  display: inline-block;
+  padding: 8px 18px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* ══════════════════════════════════════════════
+   UPLOAD AREA
+   ══════════════════════════════════════════════ */
+.upload-area {
+  border: 2.5px dashed var(--green3);
+  border-radius: var(--radius);
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--green4);
+  transition: all 0.2s;
+  position: relative;
+}
+
+.upload-area:hover {
+  border-color: var(--green);
+  background: #c8edd4;
+}
+
+.upload-area input[type=file] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.upload-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.upload-sub {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: 'Noto Sans Tamil', sans-serif;
+  margin-top: 4px;
+}
+
+.preview-img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-top: 14px;
+  display: none;
+  border: 2px solid var(--border);
+}
+
+/* ══════════════════════════════════════════════
+   LOADING SPINNER
+   ══════════════════════════════════════════════ */
+.loading {
+  display: none;
+  text-align: center;
+  padding: 28px;
+}
+
+.spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid var(--border);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 15px;
+  color: var(--muted);
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+/* ══════════════════════════════════════════════
+   ERROR BOX
+   ══════════════════════════════════════════════ */
+.error-box {
+  display: none;
+  background: #FFF3F3;
+  border: 1.5px solid #F5C6C6;
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-top: 16px;
+  color: var(--red);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.error-tip {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 5px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+/* ══════════════════════════════════════════════
+   RESULT BOX (shared)
+   ══════════════════════════════════════════════ */
+.result-box {
+  display: none;
+  margin-top: 18px;
+}
+
+.info-tag {
+  display: inline-block;
+  background: var(--green4);
+  color: var(--green);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+/* ── Pest result ── */
+.result-disease {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 4px;
+  text-transform: capitalize;
+}
+
+.result-conf {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+.conf-bar-wrap {
+  background: #e0e0e0;
+  border-radius: 20px;
+  height: 10px;
+  margin-bottom: 18px;
+}
+
+.conf-bar {
+  background: var(--green2);
+  border-radius: 20px;
+  height: 10px;
+  transition: width 0.8s ease;
+}
+
+.top3-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+.top3-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--bg);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.top3-item .name {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.top3-item .pct {
+  color: var(--green2);
+  font-weight: 700;
+}
+
+/* ── Crop result ── */
+.crop-result-main {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--green);
+  text-transform: capitalize;
+  margin-bottom: 4px;
+}
+
+.crop-result-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 14px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+.crop-top3 {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.crop-chip {
+  background: var(--green4);
+  border: 1px solid var(--green3);
+  border-radius: 20px;
+  padding: 7px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.crop-chip .pct {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+/* ══════════════════════════════════════════════
+   TIPS CARDS
+   ══════════════════════════════════════════════ */
+.tips-card {
+  background: var(--green4);
+  border-color: var(--green3);
+}
+
+.soil-info-card {
+  background: #FFF8E1;
+  border-color: #FFE082;
+}
+
+.tips-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green);
+  margin-bottom: 10px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+.soil-info-card .tips-title {
+  color: #5D4037;
+}
+
+.tips-list {
+  padding-left: 18px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 2.1;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+/* ══════════════════════════════════════════════
+   WEATHER PAGE
+   ══════════════════════════════════════════════ */
+.coords-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.coord-input {
+  flex: 1;
+  min-width: 120px;
+}
+
+.auto-btn-wrap {
+  padding-bottom: 2px;
+}
+
+.weather-current {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.weather-temp {
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+}
+
+.weather-info {
+  flex: 1;
+}
+
+.w-loc {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 4px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+.w-wind {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Alert boxes */
+.alert-box {
+  background: #FFF8E1;
+  border: 1.5px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #5D4037;
+  line-height: 1.5;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+.alert-good {
+  background: var(--green4);
+  border-color: var(--green3);
+  color: var(--green);
+}
+
+/* 7-day forecast grid */
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+
+@media (max-width: 500px) {
+  .forecast-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.forecast-day {
+  background: var(--green4);
+  border-radius: 8px;
+  padding: 8px 4px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.forecast-day .day-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.forecast-day .day-icon {
+  font-size: 20px;
+  margin: 4px 0;
+}
+
+.forecast-day .day-max {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.forecast-day .day-rain {
+  font-size: 11px;
+  color: #1565C0;
+}
+
+/* ══════════════════════════════════════════════
+   MARKET PRICES PAGE
+   ══════════════════════════════════════════════ */
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.price-table th {
+  background: var(--green);
+  color: white;
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.price-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.price-table tr:nth-child(even) td {
+  background: var(--green4);
+}
+
+.price-modal {
+  font-weight: 700;
+  color: var(--green);
+}
+
+.price-source {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════ */
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+  font-family: 'Noto Sans Tamil', sans-serif;
+  line-height: 1.8;
+}

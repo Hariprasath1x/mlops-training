@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FieldMind – Smart Crop Advisory</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;700&family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div>
+    <div class="logo">🌱 Field<span>Mind</span></div>
+    <div class="tagline" id="tagline">Smart Crop Advisory · விவசாய ஆலோசனை</div>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('ta')">தமிழ்</button>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav">
+  <button class="nav-btn active" onclick="showPage('pest')" id="nav-pest">
+    <span class="icon">🔬</span>
+    <span id="nav-pest-label">Pest Detection</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('crop')" id="nav-crop">
+    <span class="icon">🌾</span>
+    <span id="nav-crop-label">Crop Advisory</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('weather')" id="nav-weather">
+    <span class="icon">🌤</span>
+    <span id="nav-weather-label">Weather</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('prices')" id="nav-prices">
+    <span class="icon">💰</span>
+    <span id="nav-prices-label">Market Prices</span>
+  </button>
+</div>
+
+<!-- PAGE 1: PEST DETECTION -->
+<div class="page active" id="page-pest">
+  <div class="card">
+    <div class="card-title" id="pest-title">📷 Upload Crop Leaf Photo</div>
+    <div class="card-sub" id="pest-sub">
+      Take a clear photo of the diseased leaf and upload it below.<br/>
+      நோயுற்ற இலையின் தெளிவான புகைப்படம் எடுத்து பதிவேற்றவும்.
+    </div>
+    <div class="upload-area" onclick="document.getElementById('leaf-input').click()">
+      <input type="file" id="leaf-input" accept="image/*" onchange="handleImageUpload(event)"/>
+      <div class="upload-icon">📤</div>
+      <div class="upload-text" id="upload-text">Tap here to upload leaf photo</div>
+      <div class="upload-sub" id="upload-sub">இலை புகைப்படத்தை பதிவேற்றவும்</div>
+    </div>
+    <img id="preview-img" class="preview-img" src="" alt="Leaf preview"/>
+    <div class="loading" id="pest-loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Analysing your crop... பகுப்பாய்வு செய்கிறோம்...</div>
+    </div>
+    <div class="error-box" id="pest-error">
+      <div id="error-msg">❌ This doesn't look like a plant photo.</div>
+      <div class="error-tip" id="error-tip">Please upload a clear photo of a crop leaf.</div>
+    </div>
+    <div class="result-box" id="pest-result">
+      <div class="info-tag">Detection Result · கண்டறிதல் முடிவு</div>
+      <div class="result-disease" id="result-disease">–</div>
+      <div class="result-conf" id="result-conf">–</div>
+      <div class="conf-bar-wrap"><div class="conf-bar" id="conf-bar" style="width:0%"></div></div>
+      <div class="top3-title">Other possibilities · மற்ற வாய்ப்புகள்</div>
+      <div id="top3-list"></div>
+      <button class="btn btn-secondary btn-small" onclick="resetPest()">
+        🔄 Try Another Photo · வேறு படம்
+      </button>
+    </div>
+  </div>
+  <div class="card tips-card">
+    <div class="tips-title">💡 How to take a good photo · நல்ல படம் எடுப்பது எப்படி</div>
+    <ul class="tips-list">
+      <li>Place the leaf flat on a plain surface · இலையை தட்டையான இடத்தில் வையுங்கள்</li>
+      <li>Good lighting — no shadows · நல்ல வெளிச்சத்தில் எடுக்கவும்</li>
+      <li>Fill the frame with the leaf · இலை முழுவதும் படத்தில் வர வேண்டும்</li>
+      <li>Keep the camera steady · கேமராவை நிலையாக வையுங்கள்</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 2: CROP ADVISORY -->
+<div class="page" id="page-crop">
+  <div class="card">
+    <div class="card-title" id="crop-title">🌾 Crop Recommendation</div>
+    <div class="card-sub" id="crop-sub">
+      Enter your soil details to get the best crop suggestion.<br/>
+      உங்கள் மண் விவரங்களை உள்ளிட்டு சிறந்த பயிர் பரிந்துரையை பெறுங்கள்.
+    </div>
+    <div class="input-grid">
+      <div>
+        <label>Nitrogen (N) <span class="tamil">நைட்ரஜன்</span></label>
+        <input type="number" id="inp-n" placeholder="e.g. 90" min="0" max="200"/>
+      </div>
+      <div>
+        <label>Phosphorus (P) <span class="tamil">பாஸ்பரஸ்</span></label>
+        <input type="number" id="inp-p" placeholder="e.g. 42" min="0" max="200"/>
+      </div>
+      <div>
+        <label>Potassium (K) <span class="tamil">பொட்டாசியம்</span></label>
+        <input type="number" id="inp-k" placeholder="e.g. 43" min="0" max="200"/>
+      </div>
+      <div>
+        <label>Soil pH <span class="tamil">மண் pH</span></label>
+        <input type="number" id="inp-ph" placeholder="e.g. 6.5" min="0" max="14" step="0.1"/>
+      </div>
+      <div>
+        <label>Temperature (°C) <span class="tamil">வெப்பநிலை</span></label>
+        <input type="number" id="inp-temp" placeholder="e.g. 25" min="0" max="60"/>
+      </div>
+      <div>
+        <label>Humidity (%) <span class="tamil">ஈரப்பதம்</span></label>
+        <input type="number" id="inp-hum" placeholder="e.g. 80" min="0" max="100"/>
+      </div>
+    </div>
+    <div>
+      <label>Rainfall (mm) <span class="tamil">மழைவீழ்ச்சி</span></label>
+      <input type="number" id="inp-rain" placeholder="e.g. 200" min="0" max="500"/>
+    </div>
+    <button class="btn" onclick="getCropRecommendation()">
+      🌱 Get Recommendation · பரிந்துரை பெறு
+    </button>
+    <div class="loading" id="crop-loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Analysing soil... மண் பகுப்பாய்வு...</div>
+    </div>
+    <div class="result-box" id="crop-result">
+      <div class="info-tag">Best Crop · சிறந்த பயிர்</div>
+      <div class="crop-result-main" id="crop-main">–</div>
+      <div class="crop-result-sub">Based on your soil conditions · உங்கள் மண் நிலைமைகளின் படி</div>
+      <div class="top3-title">Top 3 options · முதல் 3 தேர்வுகள்</div>
+      <div class="crop-top3" id="crop-top3"></div>
+    </div>
+  </div>
+  <div class="card tips-card soil-info-card">
+    <div class="tips-title">📌 Where to find soil values · மண் மதிப்புகளை எங்கே காண்பது</div>
+    <ul class="tips-list">
+      <li>Your Soil Health Card · உங்கள் மண் சுகாதார அட்டை</li>
+      <li>Local KVK / Agriculture office · உள்ளூர் KVK அலுவலகம்</li>
+      <li>Soil testing lab · மண் பரிசோதனை ஆய்வகம்</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PAGE 3: WEATHER -->
+<div class="page" id="page-weather">
+  <div class="card">
+    <div class="card-title" id="weather-title">🌤 Weather Forecast</div>
+    <div class="card-sub" id="weather-sub">
+      7-day weather for your location · உங்கள் இடத்தின் 7 நாள் வானிலை
+    </div>
+    <div class="coords-row">
+      <div class="coord-input">
+        <label>Latitude <span class="tamil">அட்சரேகை</span></label>
+        <input type="number" id="inp-lat" placeholder="e.g. 13.08" step="0.01" value="13.08"/>
+      </div>
+      <div class="coord-input">
+        <label>Longitude <span class="tamil">தீர்க்கரேகை</span></label>
+        <input type="number" id="inp-lon" placeholder="e.g. 80.27" step="0.01" value="80.27"/>
+      </div>
+      <div class="auto-btn-wrap">
+        <button class="btn btn-secondary btn-small" onclick="getLocationAuto()">📍 Auto</button>
+      </div>
+    </div>
+    <button class="btn" onclick="getWeather()">
+      🌡 Get Weather · வானிலை பெறு
+    </button>
+    <div class="loading" id="weather-loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Fetching weather... வானிலை தகவல் பெறுகிறோம்...</div>
+    </div>
+    <div class="result-box" id="weather-result">
+      <div class="weather-current">
+        <div class="weather-temp" id="w-temp">–°C</div>
+        <div class="weather-info">
+          <div class="w-loc" id="w-loc">–</div>
+          <div class="w-wind" id="w-wind">–</div>
+        </div>
+      </div>
+      <div id="w-alerts"></div>
+      <div class="top3-title" style="margin-top:16px;">7-Day Forecast · 7 நாள் முன்னறிவிப்பு</div>
+      <div class="forecast-grid" id="forecast-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: MARKET PRICES -->
+<div class="page" id="page-prices">
+  <div class="card">
+    <div class="card-title" id="prices-title">💰 Mandi Market Prices</div>
+    <div class="card-sub" id="prices-sub">
+      Check today's wholesale prices at your nearest market.<br/>
+      உங்கள் அருகிலுள்ள சந்தையில் இன்றைய விலையை அறிக.
+    </div>
+    <div>
+      <label>State · மாநிலம்</label>
+      <select id="inp-state">
+        <option value="Tamil Nadu">Tamil Nadu · தமிழ்நாடு</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Punjab">Punjab</option>
+        <option value="Haryana">Haryana</option>
+        <option value="Uttar Pradesh">Uttar Pradesh</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="West Bengal">West Bengal</option>
+        <option value="Odisha">Odisha</option>
+      </select>
+    </div>
+    <div>
+      <label>Commodity · பொருள்</label>
+      <select id="inp-commodity">
+        <option value="Tomato">Tomato · தக்காளி</option>
+        <option value="Onion">Onion · வெங்காயம்</option>
+        <option value="Potato">Potato · உருளைக்கிழங்கு</option>
+        <option value="Rice">Rice · அரிசி</option>
+        <option value="Wheat">Wheat · கோதுமை</option>
+        <option value="Maize">Maize · மக்காச்சோளம்</option>
+        <option value="Cotton">Cotton · பருத்தி</option>
+        <option value="Groundnut">Groundnut · வேர்க்கடலை</option>
+        <option value="Soyabean">Soyabean · சோயாபீன்</option>
+        <option value="Banana">Banana · வாழைப்பழம்</option>
+        <option value="Cashew">Cashew · முந்திரி</option>
+      </select>
+    </div>
+    <button class="btn" onclick="getMarketPrices()">
+      📊 Get Prices · விலை பெறு
+    </button>
+    <div class="loading" id="prices-loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Fetching prices... விலை தகவல் பெறுகிறோம்...</div>
+    </div>
+    <div class="result-box" id="prices-result">
+      <div class="info-tag">Today's Prices · இன்றைய விலை</div>
+      <div style="overflow-x:auto;">
+        <table class="price-table">
+          <thead>
+            <tr>
+              <th>Market · சந்தை</th>
+              <th>Min ₹</th>
+              <th>Max ₹</th>
+              <th>Modal ₹</th>
+            </tr>
+          </thead>
+          <tbody id="price-tbody"></tbody>
+        </table>
+      </div>
+      <div class="price-source" id="price-source">Source: Agmarknet / data.gov.in</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  FieldMind © 2025 · SIH Problem #25010 · Built for Indian Farmers 🇮🇳<br/>
+  விவசாயிகளுக்காக உருவாக்கப்பட்டது
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
